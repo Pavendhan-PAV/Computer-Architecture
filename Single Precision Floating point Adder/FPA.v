@@ -3,6 +3,8 @@
 `include "Adder/32bit_RDA.v"
 `include "Tools/split.v"
 
+//LINK FOR CONVERSION -- https://www.h-schmidt.net/FloatConverter/IEEE754.html
+
 module top;
 
     reg [31:0] Exp1,Exp2;
@@ -70,8 +72,8 @@ module top;
             Temp_Mantissa = Sum[22:0];
             M3 = Temp_Mantissa<<i;
         end
-        else
-        begin
+        else    //NORMAL CASE
+        begin   
             M3 = Sum[22:0];
             E3 = E1;
         end
@@ -87,12 +89,11 @@ module top;
             Final_exp = {S1,{8{|Sum}} & E3,M3};
     end
 
-	initial
+	//---------------------------------------------------------------------------------------------TESTBENCH
+    initial
     begin
-        #0	Exp1={1'b0,{8{1'b1}},23'b0}; 
-		#0	Exp2={1'b0,{7{1'b1}},24'b111011};
-        #10 Exp1={31'b0,1'b1}; Exp2=32'b00111111110010100011110101110001;
-        //#20 Exp1=32'b01000110000111000100000000000000;Exp2=32'b11000101111110100000000000000000;
+        #0	Exp1={1'b0,{8{1'b1}},23'b0}; Exp2={1'b0,{7{1'b1}},24'b111011};
+        #10 Exp1={9'b010000001,{23{1'b0}}}; Exp2={9'b010000010,{23{1'b0}}};
         #20 Exp1=32'b00111111110011001100110011001101; Exp2=32'b10111111100110011001100110011010;
     end
     initial

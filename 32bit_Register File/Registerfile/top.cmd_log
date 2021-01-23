@@ -1,0 +1,6 @@
+xst -intstyle ise -ifn "/home/pav/CS/CA/32bit_Register File/Registerfile/top.xst" -ofn "/home/pav/CS/CA/32bit_Register File/Registerfile/top.syr" 
+vhdtdtfi -lib work {/home/pav/CS/CA/32bit_Register File/Reg_f.v} -lang verilog -prj Registerfile -o top.spl -module top -template /home/pav/Xilinx/Xilinx/14.7/ISE_DS/ISE//data/splveri.tft -deleteonerror 
+spl2sym -intstyle ise -family virtex7 top.spl {/home/pav/CS/CA/32bit_Register File/Registerfile/top.sym} 
+xst -intstyle ise -ifn "/home/pav/CS/CA/32bit_Register File/Registerfile/top.xst" -ofn "/home/pav/CS/CA/32bit_Register File/Registerfile/top.syr" 
+xst -intstyle ise -ifn "/home/pav/CS/CA/32bit_Register File/Registerfile/top.xst" -ofn "/home/pav/CS/CA/32bit_Register File/Registerfile/top.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc7vx330t-ffg1157-3 "top.ngc" top.ngd  

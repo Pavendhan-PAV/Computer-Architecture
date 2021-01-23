@@ -1,0 +1,2 @@
+xst -intstyle ise -ifn "/home/pav/CS/CA/32bit_Register File/Registerfile/regfile.xst" -ofn "/home/pav/CS/CA/32bit_Register File/Registerfile/regfile.syr" 
+xst -intstyle ise -ifn "/home/pav/CS/CA/32bit_Register File/Registerfile/regfile.xst" -ofn "/home/pav/CS/CA/32bit_Register File/Registerfile/regfile.syr" 

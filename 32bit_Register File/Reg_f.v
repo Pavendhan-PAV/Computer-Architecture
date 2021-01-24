@@ -13,12 +13,6 @@ module regfile( input[31:0] in,
     reg [31:0] regFile[31:0];
     integer i;
 
-    initial 
-    begin
-        for(i=0;i<32;i=i+1)
-            regFile[i]=32'h0000_0000;  //initially the register file is set to empty and is executed only once
-    end
-
     //always@(read or write or in) 
     always@(posedge clk)
     begin
@@ -37,12 +31,12 @@ module regfile( input[31:0] in,
                     o2=regFile[o2_addr]; //read using the output_2 address
                 end //read
             end //reset
+            
+            if(write==1'b1)
+            begin
+                regFile[in_addr]=in; //write given input "in" in "in_addr" address 
+            end
         end //enable
-    
-        if(write==1'b1)
-        begin
-           regFile[in_addr]=in; //write given input "in" in "in_addr" address 
-        end
     end //always
 endmodule
 

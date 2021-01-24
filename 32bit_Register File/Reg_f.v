@@ -5,7 +5,8 @@ module regfile( input[31:0] in,
                 input read,
                 input write,
                 output reg[31:0] o1,
-                output reg[31:0] o2 );
+                output reg[31:0] o2,
+                input clk );
 
     reg [31:0] regFile[31:0];
     integer i;
@@ -16,7 +17,8 @@ module regfile( input[31:0] in,
             regFile[i]=32'h0000_0000;  //initially the register file is set to empty and is executed only once
     end
 
-    always@(read or write or in) 
+    //always@(read or write or in) 
+    always@(posedge clk)
     begin
         if(read==1'b1)
         begin
@@ -36,17 +38,21 @@ module top;
     reg [4:0]  o1_addr,o2_addr,in_addr;
     reg read,write;
     wire [31:0] w_o1,w_o2;
+    reg clk;
 
-    regfile m_rf_1(in,o1_addr,o2_addr,in_addr,read,write,w_o1,w_o2);
+    regfile m_rf_1(in,o1_addr,o2_addr,in_addr,read,write,w_o1,w_o2,clk);
+
+    always #1 clk = !clk;
 
     initial
     begin
-        #0 in=32'd111111; in_addr=5'd30; read=1'b0; 
-        o1_addr=5'd30; o2_addr=5'd10; write=1'b0; 
-    
+        clk =0; in=32'd111111; in_addr=5'd30; read=1'b0; o1_addr=5'd30; o2_addr=5'd10; write=1'b0; 
+
         #1 write=1'b1; 
         #2 in_addr=5'd10; in=32'd9999999;
-        #3 read=1'b1;
+        #4 read=1'b1;
+
+        #5 $finish;
     end
 
     initial
